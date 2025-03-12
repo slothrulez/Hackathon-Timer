@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: black;
+      color: white;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    #countdown-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+
+    .countdown-item, .separator {
+      font-size: 320px;
+      font-weight: 400;
+      line-height: 1;
+      width: 260px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #creator {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      line-height: 22.4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown-container">
+    <div id="hours" class="countdown-item">00</div>
+    <div class="separator">:</div>
+    <div id="minutes" class="countdown-item">00</div>
+    <div class="separator">:</div>
+    <div id="seconds" class="countdown-item">00</div>
+  </div>
+  <div id="creator">Created by slothrulez</div>
+
+  <script>
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 1);
+    targetDate.setHours(10, 0, 0, 0);
+
+    function updateCountdown() {
+      const now = new Date();
+      const timeDifference = targetDate - now;
+
+      if (timeDifference <= 0) {
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+      } else {
+        const hours = String(Math.floor((timeDifference / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+        const minutes = String(Math.floor((timeDifference / (1000 * 60)) % 60)).padStart(2, '0');
+        const seconds = String(Math.floor((timeDifference / 1000) % 60)).padStart(2, '0');
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
